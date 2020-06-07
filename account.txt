@@ -1,0 +1,25 @@
+<?php
+                if(isset($_POST['log'])){
+                    include 'includes/config.php';
+                    
+                    $uname = $_POST['email'];
+                    $pass = $_POST['pass'];
+                    
+                    $qy = "SELECT * FROM client WHERE email = '$uname' AND id_no = '$pass'";
+                    $log = $conn->query($qy);
+                    $num = $log->num_rows;
+                    $row = $log->fetch_assoc();
+                    if($num > 0){
+                        session_start();
+                        $_SESSION['email'] = $row['email'];
+                        $_SESSION['pass'] = $row['id_no'];
+                        echo "<script type = \"text/javascript\">
+                                    alert(\"Login Successful.................\");
+                                    window.location = (\"index.php\")
+                                    </script>";
+                    } else{
+                        echo "<script type = \"text/javascript\">
+                                    alert(\"Login Failed. Try Again................\");
+                                    window.location = (\"account.php\")
+                                    </script>";
+                    } } ?>
